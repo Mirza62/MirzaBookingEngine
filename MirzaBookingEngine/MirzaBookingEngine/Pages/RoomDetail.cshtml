@@ -1,0 +1,75 @@
+﻿@page
+@model MirzaBookingEngine.Pages.RoomDetailModel
+@{
+}
+@using System.Text.Json;
+
+<style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: 700px 300px;
+        grid-auto-rows: minmax(200px,auto);
+        grid-row-gap: 10px;
+        grid-column-gap: 20px;
+        text-align: justify;
+        justify-content: center;
+    }
+</style>
+<body>
+    <div class="grid-container">
+        <div class="grid-item grid-item-1">
+            <span>Room Id :@Model.Room.RoomId</span>
+            <br />
+            <span>@Model.Room.Price.ToString("c") /Per Night</span>
+            <br />
+            <img src="~/HotelImage.jpg" width="400px" height="400px" />
+            <br />
+            <span><h4>Room Description</h4></span>
+            <br />
+            <span><h6>@Model.Room.Description</h6></span>
+            <br />
+        </div>
+        <div class="grid-item grid-item-2">
+            <span><h5>Reservation Details</h5></span>
+            <span><h6>CheckIn Date</h6></span>
+            <span>@Model.Reservation.CheckInDate</span>
+            <br />
+            <span><h6>CheckOutDate</h6></span>
+            <span>@Model.Reservation.CheckOutDate</span>
+            <br />
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Number of Guest</td>
+                        <td>@Model.Reservation.NoOfAdults</td>
+                    </tr>
+                    <tr>
+                        <td>No of nights to stay</td>
+                        <td>@Model.Reservation.Nights</td>
+                    </tr>
+                    <tr>
+                        <td>Total Stay Price</td>
+                        <td>@Model.Invoice.TotalStayPrice</td>
+                    </tr>
+                    <tr>
+                        <td>Taxes(18%)</td>
+                        <td>@Model.Invoice.Tax</td>
+                    </tr>
+                    <tr>
+                        <td>Total Cost</td>
+                        <td>@Model.Invoice.TotalRoomCost</td>
+                    </tr>
+                    <form asp-page="BookRoom" method="get">
+                        <input type="hidden" value="@JsonSerializer.Serialize(Model.Reservation)" name="reservation" />
+                        <input type="hidden" value="@JsonSerializer.Serialize(Model.Room)" name="room" />
+                        <input type="hidden" value="@JsonSerializer.Serialize(Model.Invoice)" name="invoice" />
+                        <button type="submit">Book Room</button>
+                    </form>
+                </tbody>
+            </table>
+            <br />
+            
+            @*<input type="submit" value="Book Now" class="btn btn-success" />*@
+        </div>
+    </div>
+</body>

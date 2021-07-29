@@ -1,0 +1,50 @@
+﻿@page
+@model MirzaBookingEngine.Pages.AdminModel
+@{
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mirza Booking All Reservations</title>
+</head>
+<body>
+    <br />
+    <span><a asp-controller="Home" asp-action="Index">Create New Reservation.</a></span>
+    <br />
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Property</th>
+            <th>Customer Name</th>
+            <th>Reservation</th>
+            <th>Adults</th>
+            <th>Room</th>
+            <th>CheckIn Details</th>
+            <th>CheckOut Details</th>
+            <th>No of Nights</th>
+        </tr>
+        @if (Model.AllReservations != null)
+        {
+            @foreach (var reservation in Model.AllReservations)
+            {
+                <tr>
+                    <td>@reservation.Property</td>
+                    <td>@reservation.CustomerName</td>
+                    <td>@reservation.ReservationId</td>
+                    <td>@reservation.Adults</td>
+                    <td>@reservation.Room</td>
+                    <td>@reservation.CheckIn</td>
+                    <td>@reservation.CheckOut</td>
+                    <td>@reservation.Nights</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                No Bookings Reserved!
+            </tr>
+        }
+    </table>
+</body>
+</html>

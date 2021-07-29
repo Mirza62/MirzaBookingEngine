@@ -1,0 +1,60 @@
+﻿@page
+@model MirzaBookingEngine.Pages.RoomsModel
+@{
+}
+@using System.Text.Json;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+
+    </title>
+</head>
+
+<style>
+    .grid-container {
+        display: grid;
+        grid-template-columns : repeat(3, 400px);
+        grid-auto-rows : 320px;
+        grid-row-gap : 10px;
+        grid-column-gap : 10px;
+
+
+    }
+</style>
+
+
+
+<body>
+    <div class="grid-container">
+        @foreach (var room in Model.Rooms)
+        {
+            <div class="grid-item grid-item-1">
+                <form id="@room.RoomId" asp-page="/RoomDetail" method="get">
+                    <input type="hidden" value="@room.RoomId" name="RoomId" />
+                    <input type="hidden" value="@JsonSerializer.Serialize(Model.Reservation)" name="reservation" />
+                    @if (room.IsRoomAvailable)
+                    {
+                        <img src="~/HotelImage.jpg" width="" height="" />
+                    }
+                    else
+                    {
+                        <img src="~/HotelNotavailableImage.jpg" width="" height="" />
+                    }
+                    <h5>Room No: @room.RoomId</h5>
+                    <h4>Price/perNight: @room.Price</h4>
+                    @if (room.IsRoomAvailable)
+                    {
+                        <button type="submit" id="ButtonSubmit">View More Information</button>
+                    }
+                    else
+                    {
+                        <button type="submit" id="ButtonSubmit" disabled>Not Available</button>
+                    }
+                </form>
+            </div>
+        }
+    </div>
+</body>
+</html>
